@@ -38,7 +38,7 @@ public class Main extends Application {
 	
 	public static int gameState;
 	static long score;
-	static int mapX=100, mapY=100;
+	static int mapX=50, mapY=50;
 	public static PlayField field = new PlayField(WIDTH, PLAY_HEIGHT, mapX, mapY);
 	public static Sprite[] creatures = new Sprite[30];
 	public static int actors;
@@ -142,8 +142,10 @@ public class Main extends Application {
 				creatures[0].setPosition(field.move(moveRequest,creatures[0].stats.speed));
 			}
 			
-			for (int i=0;i<actors;i++)
+			for (int i=0;i<actors;i++) {
 				    creatures[i].update(field);
+			}
+			
 			moveRequest = 0;
 		}
 	}

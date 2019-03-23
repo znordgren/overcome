@@ -1,5 +1,12 @@
 package overcome;
 
+/**
+ * Class for implementing the actions the player can take
+ * 
+ * @author Zachary Nordgren
+ * @version 3/21/2019
+ *
+ */
 public class Player extends Sprite {
 	
 	final int sprites[] = {1, 0, 3, 2, 4};

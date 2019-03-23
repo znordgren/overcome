@@ -1,5 +1,12 @@
 package overcome;
 
+/**
+ * Class for maintaining all of the stats about a creature
+ * 
+ * @author Zachary Nordgren
+ * @version 3/21/2019
+ *
+ */
 public class Stats
 {
 	//stats

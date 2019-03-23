@@ -1,5 +1,12 @@
 package overcome;
 
+/**
+ * Class for storing terrain types
+ * 
+ * @author Zachary Nordgren
+ * @version 3/21/2019
+ *
+ */
 public class Terrain
 {
 	public int terrain;

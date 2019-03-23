@@ -1,5 +1,13 @@
 package overcome;
 
+/**
+ * Base class for implementing the actions generic monsters can take.
+ * There will be specific classes for different monster types derived from this one.
+ * 
+ * @author Zachary Nordgren
+ * @version 3/21/2019
+ *
+ */
 public class Monster extends Sprite {
 
 	int sprites[] = {20};

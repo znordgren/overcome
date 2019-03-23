@@ -2,6 +2,13 @@ package overcome;
 
 import javafx.geometry.Point2D;
 
+/**
+ * Base class for all non terrain objects
+ * 
+ * @author Zachary Nordgren
+ * @version 3/21/2019
+ *
+ */
 public class Sprite
 {
   double x,y;

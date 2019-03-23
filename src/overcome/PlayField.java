@@ -149,7 +149,6 @@ public class PlayField {
 		
 		// the player position x,y is always at the center of the screen
 		System.out.println("xy = (" + x + "," + y + ")");
-		System.out.println("vXY = (" + (centerX) + "," + (centerY) + ")");
 		for (yy = 0; yy < visibleH; yy++) {
 			for (xx = 0; xx < visibleW; xx++) {
 				int currentX = (int) ((x - centerX) + xx);

@@ -1,9 +1,15 @@
 package overcome;
 
 import java.util.Random;
-
 import javafx.geometry.Point2D;
 
+/**
+ * Class for storing the directions of the map and some handy helper functions
+ * 
+ * @author Zachary Nordgren
+ * @version 3/21/2019
+ *
+ */
 public class Directions {
 	
 	Random rng = new Random();
