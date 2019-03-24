@@ -70,7 +70,7 @@ public class ImageManager {
 			for (int col = 0; col < 10; col++)
 			{
 				small[i] = (Image)new WritableImage(full.getPixelReader(),
-						PlayField.CELLSIZE*col, PlayField.CELLSIZE*row, PlayField.CELLSIZE, PlayField.CELLSIZE);
+						Main.CELLSIZE*col, Main.CELLSIZE*row, Main.CELLSIZE, Main.CELLSIZE);
 				i++;
 			}
 	}

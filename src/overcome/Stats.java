@@ -10,25 +10,26 @@ package overcome;
 public class Stats
 {
 	//stats
-	public double initiative; // turn order, higher initiative goes first
-	public double health; // current health of creature
-	public double defense; // defense of creature
-	public double weight; // weight of creature
-	public double speed; // number of tiles creature can move per turn
-	public double power; // attack damage
-	public double range; // how far away creature can attack
-	public double dexterity; // how easily a creature can dodge an attack
-	public double intelligence; // how well the creature can track you 0-10
+	public double initiative;	// 0-99 turn order, higher initiative goes first
+	public double health;		// current health of creature
+	public double defense; 		// 0-99 defense of creature
+	public double weight; 		// 0-999 weight of creature
+	public double speed; 		// 0-3 number of tiles creature can move per turn
+	public double power; 		// 0-99 attack damage modifier
+	public double range; 		// 0-9 how far away creature can attack
+	public double dexterity; 	// 0-99 how easily a creature can dodge an attack
+	public double intelligence; // 0-99 how well the creature can track you
+	public double level; 		// not sure if I want to use this yet
 	
 	//conditions
-	public boolean animate; // if creature can move or not
-	public boolean onScreen; // if creature is currently on screen
-	public boolean alive; // dead creatures display the grave marker for a turn and then disappear
-	public boolean enabled; // turns on or off updating and rendering of sprite
-	public boolean visible; // turns on or off rendering of creature
-	public boolean poisoned; // poisoned creatures take damage per turn scaled to their defense
-	public boolean prone; // creatures who are prone cannot move and have range of 1
-	public boolean asleep; // creatures who are asleep cannot move or attack
+	public boolean animate; 	// if creature can move or not
+	public boolean onScreen; 	// if creature is currently on screen
+	public boolean alive; 		// dead creatures display the grave marker for a turn and then disappear
+	public boolean enabled; 	// turns on or off updating and rendering of sprite
+	public boolean visible;		// turns on or off rendering of creature
+	public boolean poisoned; 	// poisoned creatures take damage per turn scaled to their defense
+	public boolean prone; 		// creatures who are prone cannot move and have range of 1
+	public boolean asleep; 		// creatures who are asleep cannot move or attack
 	
 	public void makeInanimate()
 	{

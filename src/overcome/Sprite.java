@@ -13,13 +13,23 @@ public class Sprite
 {
   double x,y;
   int look;
+  int facing;
   public Stats stats;
 
-  public Sprite(double x1, double y1, int look) {
-	  this.x = x1;
-	  this.y = y1;
+  public Sprite(double x, double y, int look, int facing) {
+	  this.x = x;
+	  this.y = y;
 	  this.look = look;
+	  this.facing = facing;
 	  this.stats = new Stats();
+  }
+  
+  public void updateLook() {
+  }
+  
+  public void setFacing(int d) {
+	  facing = d;
+	  updateLook();
   }
 
   public void setPosition(double a, double b) {
@@ -29,6 +39,10 @@ public class Sprite
   public void setPosition(Point2D p) {
 	  	x = p.getX();
 	  	y = p.getY();
+  }
+  
+  public int getFacing() {
+	  return facing;
   }
   
   public Point2D getPosition() {

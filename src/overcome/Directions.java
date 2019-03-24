@@ -13,6 +13,7 @@ import javafx.geometry.Point2D;
 public class Directions {
 	
 	Random rng = new Random();
+	public int direction;
 	
 	public final static int STOPPED = 0;
 	public final static int LEFT = 1;
@@ -40,7 +41,7 @@ public class Directions {
 		return new Point2D(x,y);
 	}
 	
-	public int randDirection() {
+	public int randDirection() { //including stopped
 		return rng.nextInt(DOWN+1);
 	}
 	
