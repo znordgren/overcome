@@ -1,13 +1,18 @@
-This game is called overcome and it is a roguelike dungeon crawler where you try to stay alive while fighting off monsters and advancing through levels.
+Overcome is a roguelike dungeon crawler where you fight off monsters and collect loot as you advance through levels.
 
-The game is incomplete right now because I ran into some challanges that took longer to resolve than I anticipated and I didn't work ahead very far.
+Made for the class COEN3550 Programming Computer Games with Dr. Mike Slattery at Marquette University 2019.
 
-The controls to move around are WASD or the arrow keys. Currently there are no other interactions implemented.
+The game uses Java8 and JavaFx. Import it into Eclipse and see what happens.
+
+The controls to move around are WASD or the arrow keys.
+To fire press Space Bar.
+To open Chests press E while standing in front of them.
 
 Implemented features:
--Object oriented design
--Background generation
--Creature status tracking
+-Dungeon generation
+-Fog of War
+-Health Status Bar
+-Creature status
 -Player movement
 -Background movement and scrolling
 -Collision detection with walls
@@ -17,17 +22,17 @@ Implemented features:
 -Turn Based Behavior
 -Artwork
 
-
 Planned features:
 -Shooting
--transitions between turns
 -Attacking and being attacked
--Dungeon generation
--Fog of War
--Status Bar at the bottom
+-Transitions between turns
+-Collision detection between creatures
+-Chests
 -Loot
+-More Weapons
 -Pathfinding for enemies
 -More enemy types
--level advancing
--different terrain types
--Remove all static references
+-Level advancing
+-More Art
+-Different terrain types
+-Remove all static references (kinda done, I still have a few)
