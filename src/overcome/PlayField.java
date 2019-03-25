@@ -31,8 +31,8 @@ public class PlayField {
 		this.visibleH = windowH / Main.CELLSIZE;
 		PlayField.centerX = this.visibleW / 2;
 		PlayField.centerY = this.visibleH / 2;
-		this.mapW = 50;
-		this.mapH = 50;
+		this.mapW = 100;
+		this.mapH = 100;
 
 		this.dungeonMap = new DungeonMap(mapW, mapH);
 	}
@@ -92,7 +92,7 @@ public class PlayField {
 		double xx, yy, currentX, currentY;
 		Terrain t = new Terrain();
 		// the player position x,y is always at the center of the screen
-		System.out.println("xy = (" + x + "," + y + ")");
+		//System.out.println("xy = (" + x + "," + y + ")");
 		for (yy = 0; yy < visibleH; yy++) {
 			for (xx = 0; xx < visibleW; xx++) {
 
@@ -100,8 +100,9 @@ public class PlayField {
 				currentY = (y - centerY) + yy;
 
 				t.terrain = dungeonMap.get(currentX, currentY);
-
-				gc.drawImage(ImageManager.get(t), Main.CELLSIZE * (xx), Main.CELLSIZE * (yy));
+				
+				if(dungeonMap.getVisible(currentX, currentY))
+					gc.drawImage(ImageManager.get(t), Main.CELLSIZE * (xx), Main.CELLSIZE * (yy));
 			}
 		}
 	}

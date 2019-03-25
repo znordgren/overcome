@@ -11,8 +11,8 @@ public class Player extends Sprite {
 
 	final int sprites[] = {1, 0, 3, 2, 4};
 
-	public Player(int startX, int startY) {
-		super(startX, startY, Directions.DOWN-2, Directions.DOWN);
+	public Player(double x, double y) {
+		super(x, y, Directions.DOWN-2, Directions.DOWN);
 		stats.makeAnimate();
 		stats.setStats(10, 100, 20, 50, 1, 1, 10, 10, 10);
 		stats.onScreen = true;

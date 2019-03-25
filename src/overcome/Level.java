@@ -17,17 +17,24 @@ public class Level {
 	}
 
 	public void createLevel() {
+		field = new PlayField(Main.WIDTH, Main.PLAY_HEIGHT);
 		field.generateField();
-		player = new Player(1, 1);
+		player = new Player(field.x, field.y);
+		field.dungeonMap.updateDiscoveredMap(player.getPosition(), Directions.DOWN);
+		field.dungeonMap.updateDiscoveredMap(player.getPosition(), Directions.UP); // see whole starting room so it is a little less disorienting
 		monsters = new MonsterList();
-		monsters.addRandomMonster(new Point2D(10, 5));
-		monsters.addRandomMonster(new Point2D(10, 10));
-		monsters.addRandomMonster(new Point2D(5, 10));
+		monsters.addRandomMonster(new Point2D(field.x,field.y));
+		monsters.addRandomMonster(new Point2D(field.x, field.y));
 		monsters.sortByInitiative();
+		System.out.println("I finished Creating the level");
 	}
 
 	public void spin(Requests r) {
 		boolean newTurn = false;
+		if (r.refresh == 1) {
+			createLevel();
+			return;
+		}
 		if (r.move != Directions.STOPPED) {
 			if (r.move == player.getFacing()) {
 				processMove(r.move);
@@ -35,6 +42,7 @@ public class Level {
 			} else {
 				player.setFacing(r.move);
 			}
+			field.dungeonMap.updateDiscoveredMap(player.getPosition(), player.facing);
 		}
 		if (r.shoot == 1) {
 			// bulletList.shoot(player);
@@ -53,6 +61,7 @@ public class Level {
 		if (field.checkMove(m, player.stats.speed)) {
 			player.setFacing(m);
 			player.setPosition(field.move(m, player.stats.speed));
+			System.out.println("current position: " + player.getPosition());
 		}
 	}
 

@@ -31,8 +31,8 @@ public class Main extends Application {
 	final String appName = "Overcome";
 	final static int FPS = 30;
 	final static int CELLSIZE = 50;
-	final static int WIDTH = 750;
-	final static int PLAY_HEIGHT = 650;
+	final static int WIDTH = 1050;
+	final static int PLAY_HEIGHT = 750;
 	final static int INFO_HEIGHT = 100;
 
 	//SplashScreen splash = new Splash();
@@ -75,6 +75,8 @@ public class Main extends Application {
 			case SPACE:
 				requests.shoot = 1;
 				break;
+			case R:
+				requests.refresh = 1;
 			default:
 				break;
 			}
