@@ -6,7 +6,6 @@ The game uses Java8 and JavaFx. Import it into Eclipse and see what happens.
 
 The controls to move around are WASD or the arrow keys.
 To fire press Space Bar.
-To open Chests press E while standing in front of them.
 
 Implemented features:
 -Dungeon generation
@@ -21,18 +20,18 @@ Implemented features:
 -Image Sprites
 -Turn Based Behavior
 -Artwork
-
-Planned features:
 -Shooting
 -Attacking and being attacked
+-Level advancing
+-Pathfinding for enemies
+
+Planned features:
 -Transitions between turns
 -Collision detection between creatures
 -Chests
 -Loot
 -More Weapons
--Pathfinding for enemies
 -More enemy types
--Level advancing
 -More Art
 -Different terrain types
--Remove all static references (kinda done, I still have a few)
+-Remove all static references
