@@ -3,9 +3,6 @@ package overcome;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-
-import com.sun.javafx.scene.traversal.Direction;
-
 import javafx.geometry.Point2D;
 
 public class DungeonMap {
@@ -15,6 +12,8 @@ public class DungeonMap {
 	int[][] discoveredMap;
 	int[][] itemMap;
 	int mapW, mapH;
+	
+	MonsterList monsters;
 
 	public DungeonMap(int w, int h) {
 		mapW = w;
@@ -22,6 +21,7 @@ public class DungeonMap {
 		map = new int[mapW][mapH];
 		discoveredMap = new int[mapW][mapH];
 		itemMap = new int[mapW][mapH];
+		monsters = new MonsterList();
 	}
 	
 	void updateDiscoveredMap(Point2D p, int dir) {
@@ -109,10 +109,13 @@ public class DungeonMap {
 					map[c][r] = Terrain.EMPTY;
 			}
 		}
+		if(room.starting) {
+			System.out.println("Made Ending: " + room.getCenter());
+			setPosition(room.getCenter(), Terrain.DOWNSTAIR);
+		}
 		if(room.ending) {
 			System.out.println("Made Ending: " + room.getCenter());
 			setPosition(room.getCenter(), Terrain.UPSTAIR);
-			
 		}
 	}
 
@@ -182,32 +185,18 @@ public class DungeonMap {
 	}
 
 	public Point2D generate() {
-		// int x, y;
-		// Point2D startPosition = new Point2D(1, 1);
-		//
-		// for (y = 0; y < mapH; y++) {
-		// for (x = 0; x < mapW; x++) {
-		// map[x][y] = Terrain.WALL;
-		// }
-		// }
-		//
-		// for (y = 1; y < mapH - 1; y++) {
-		// for (x = 1; x < mapW - 1; x++) {
-		// map[x][y] = Terrain.EMPTY;
-		// }
-		// }
-		//
-		// return startPosition;
+
 		makeVoidMap();
 
 		int roomMinSize = 5;
 		int roomMaxSize = 10;
 		double maxDistApart = 25;
-		double roomToVoidRatioTarget = 0.1;
+		double roomToVoidRatioTarget = 0.2;
 		double roomToVoidRatioActual = 0;
+		double monsterRate = 0.4;
 
 		ArrayList<Room> roomList = new ArrayList<Room>();
-		Room thisRoom, otherRoom;
+		Room thisRoom;
 		Point2D testLocation;
 		int iRoom, iNearC, iNearU;
 		double distC, distU;
@@ -217,6 +206,10 @@ public class DungeonMap {
 					1 + rng.nextInt(mapH - roomMaxSize - 1));
 			thisRoom = new Room(testLocation, roomMinSize + rng.nextInt(roomMaxSize-roomMinSize),
 					roomMinSize + rng.nextInt(roomMaxSize-roomMinSize));
+			
+			if(rng.nextDouble() < monsterRate && roomList.size()>1) {
+				monsters.addRandomMonster(thisRoom.getCenter());
+			}
 			roomList.add(thisRoom);
 			roomToVoidRatioActual += (thisRoom.getSize() / (mapW * mapH));
 		}
@@ -270,7 +263,11 @@ public class DungeonMap {
 
 		roomList.get(iRoom).setEnding();
 		makeRoom(roomList.get(iRoom));
-		return roomList.get(0).getCenter();
+		iRoom = 0;
+		while (!roomList.get(iRoom).starting) {
+			iRoom++;
+		}
+		return roomList.get(iRoom).getCenter();
 
 	}
 	

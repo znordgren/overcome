@@ -61,6 +61,11 @@ public class Sprite
     stats.enabled = true;
   }
   
+  public void kill() {
+		stats.kill();
+		look = 16;
+	}
+  
   public void update(PlayField field){}
 
 }

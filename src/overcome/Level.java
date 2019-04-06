@@ -1,15 +1,15 @@
 package overcome;
 
 import java.util.Iterator;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Level {
 
-	long score;
+	double score;
 	PlayField field;
 	Player player;
 	MonsterList monsters;
+	Bullet bullet;
 
 	void initialize() {
 		score = 0;
@@ -22,18 +22,20 @@ public class Level {
 		player = new Player(field.x, field.y);
 		field.dungeonMap.updateDiscoveredMap(player.getPosition(), Directions.DOWN);
 		field.dungeonMap.updateDiscoveredMap(player.getPosition(), Directions.UP); // see whole starting room so it is a little less disorienting
-		monsters = new MonsterList();
-		monsters.addRandomMonster(new Point2D(field.x,field.y));
-		monsters.addRandomMonster(new Point2D(field.x, field.y));
+		monsters = field.dungeonMap.monsters;
 		monsters.sortByInitiative();
+		bullet = new Bullet();
 		System.out.println("I finished Creating the level");
 	}
 
-	public void spin(Requests r) {
+	public int spin(Requests r) {
 		boolean newTurn = false;
+		if (player.stats.health < 0) {
+			return 1;
+		}
 		if (r.refresh == 1) {
 			createLevel();
-			return;
+			return 0;
 		}
 		if (r.move != Directions.STOPPED) {
 			if (r.move == player.getFacing()) {
@@ -45,13 +47,15 @@ public class Level {
 			field.dungeonMap.updateDiscoveredMap(player.getPosition(), player.facing);
 		}
 		if (r.shoot == 1) {
-			// bulletList.shoot(player);
-			// newTurn = true;
+			bullet.shoot(player,Directions.movePoint(player.x, player.y, player.facing, 10));
+			newTurn = true;
 		}
 
 		if (newTurn) {
 			processTurn();
 		}
+		
+		return 0;
 
 	}
 
@@ -63,15 +67,30 @@ public class Level {
 			player.setPosition(field.move(m, player.stats.speed));
 			System.out.println("current position: " + player.getPosition());
 		}
+		if (field.checkEndOfLevel(player.getPosition())) {
+			createLevel();
+		}
 	}
 
 	public void processTurn() {
-
-		Iterator<Sprite> m = monsters.iterator();
+		
+		Iterator<Monster> m = monsters.iterator();
 		while (m.hasNext()) {
-			Sprite monster = m.next();
-			if (monster.stats.enabled) {
-				monster.update(field);
+			Monster monster = m.next();
+			if(bullet.enabled) {
+				if(bullet.onTrajectory(monster.getPosition()) && monster.stats.alive) {
+					monster.kill();
+					score += 10;
+					bullet.enabled = false;
+				}
+			}
+			if (monster.stats.alive) {
+				if(player.getPosition().distance(monster.x,monster.y)<2) {
+					player.stats.health -= monster.stats.power*5;
+				} else {
+					monster.update(field, player.getPosition());
+				}
+				
 			}
 		}
 
@@ -80,20 +99,24 @@ public class Level {
 	public void render(GraphicsContext gc) {
 
 		field.render(gc);
-		field.placeSprite(gc, player);
-
-		Iterator<Sprite> m = monsters.iterator();
+		
+		Iterator<Monster> m = monsters.iterator();
 		while (m.hasNext()) {
 			Sprite monster = m.next();
 			if (monster.stats.enabled && monster.stats.visible) {
 				field.placeSprite(gc, monster);
 			}
 		}
+		
+		field.placeSprite(gc, player);
 
-		// field.placeBullets(bulletList);
 	}
 
 	public String getPlayerHealth() {
 		return Double.toString(player.stats.health);
+	}
+	
+	public String getPlayerScore() {
+		return Double.toString(this.score);
 	}
 }

@@ -7,7 +7,7 @@ import javafx.geometry.Point2D;
 
 public class MonsterList {
 
-	public ArrayList<Sprite> monsters = new ArrayList<Sprite>();
+	public ArrayList<Monster> monsters = new ArrayList<Monster>();
 	public int count;
 
 	public MonsterFactory monsterFactory = new MonsterFactory();
@@ -16,12 +16,12 @@ public class MonsterList {
 
 	}
 
-	public Iterator<Sprite> iterator() {
+	public Iterator<Monster> iterator() {
 		return monsters.iterator();
 	}
 
 	public void addRandomMonster(Point2D startLocation) {
-		Sprite monster = monsterFactory.makeMonster(startLocation);
+		Monster monster = monsterFactory.makeMonster(startLocation);
 		monsters.add(monster);
 		count = monsters.size();
 	}
@@ -42,7 +42,7 @@ public class MonsterList {
 
 	public boolean checkCollision(Point2D p) {
 		boolean hit = false;
-		Iterator<Sprite> i = monsters.iterator();
+		Iterator<Monster> i = monsters.iterator();
 		while (i.hasNext()) {
 			hit = p == i.next().getPosition();
 		}

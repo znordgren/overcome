@@ -91,15 +91,18 @@ public class Main extends Application {
 
 		switch (gameState) {
 		case 0: // splash screen
-			//splash.spin(requests);
-			gameState = 1;
+			if(requests.keyPressed) {
+				gameState = 1;
+			}
 			break;
 		case 1: // create new level
 			level.createLevel();
 			gameState = 2;
 			break;
 		case 2: // Main loop
-			level.spin(requests);
+			if(level.spin(requests) == 1) {
+				gameState = 0;
+			}
 			break;
 		default:
 			break;
@@ -116,7 +119,7 @@ public class Main extends Application {
 		switch (gameState) {
 		case 0:
 		case 1:
-			//splash.render(gc);
+			renderSplashScreen(gc);
 			break;
 		case 2:
 		case 3:
@@ -129,14 +132,23 @@ public class Main extends Application {
 		renderInfo(info_gc);
 
 	}
-
-	void renderInfo(GraphicsContext gc) {
+	
+	void renderSplashScreen(GraphicsContext gc) {
 
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, WIDTH, INFO_HEIGHT); // clear screen
 
-		gc.setFill(Color.YELLOW);
-		gc.setStroke(Color.YELLOW);
+		drawText(gc, "OVERCOME", 50, 100, 50, Color.PALEGOLDENROD);
+		drawText(gc, "wasd to move, space to shoot", 50, 200, 24, Color.YELLOW);
+		drawText(gc, "Find the stairs to advance, stay alive", 50, 250, 24, Color.YELLOW);
+
+	}
+	
+	
+	void renderInfo(GraphicsContext gc) {
+
+		gc.setFill(Color.BLACK);
+		gc.fillRect(0, 0, WIDTH, INFO_HEIGHT); // clear screen
 
 		switch (gameState) {
 		case 0:
@@ -145,16 +157,28 @@ public class Main extends Application {
 		case 2:
 		case 3:
 			drawText(gc, "HEALTH: " + level.getPlayerHealth(), 10, 30);
+			drawText(gc, "SCORE:  " + level.getPlayerScore(), 10, 60);
 			break;
 		}
 
 	}
 
 	void drawText(GraphicsContext gc, String s, double x, double y) {
+		gc.setFont(Font.font(24.0));
+		gc.setFill(Color.YELLOW);
+		gc.setStroke(Color.YELLOW);
 		gc.fillText(s, x, y);
 		gc.strokeText(s, x, y);
 	}
-
+	
+	void drawText(GraphicsContext gc, String s, double x, double y, double f, Color c) {
+		gc.setFont(Font.font(f));
+		gc.setFill(c);
+		gc.setStroke(c);
+		gc.fillText(s, x, y);
+		gc.strokeText(s, x, y);
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

@@ -38,7 +38,7 @@ public class PlayField {
 	}
 
 	public boolean checkMove(Point2D p, int dir, double dist) {
-		Point2D potentialP = dirObject.movePoint(p.getX(), p.getY(), dir, dist);
+		Point2D potentialP = Directions.movePoint(p.getX(), p.getY(), dir, dist);
 		return Terrain.moveIsValid(dungeonMap.get(potentialP));
 	}
 
@@ -47,13 +47,17 @@ public class PlayField {
 	}
 
 	public Point2D move(int dir, double dist) {
-		Point2D p = dirObject.movePoint(x, y, dir, dist);
+		Point2D p = Directions.movePoint(x, y, dir, dist);
 		setPosition(p);
 		return p;
 	}
+	
+	public boolean checkEndOfLevel(Point2D p) {
+		return dungeonMap.map[(int) p.getX()][(int) p.getY()] == Terrain.UPSTAIR;
+	}
 
 	public boolean checkOnScreen(double xx, double yy) {
-		return (Math.abs(x - xx) <= centerX && Math.abs(y - yy) <= centerY);
+		return (dungeonMap.discoveredMap[(int)xx][(int)yy] == 1) && (Math.abs(x - xx) <= centerX && Math.abs(y - yy) <= centerY);
 	}
 
 	public boolean checkOnScreen(Point2D p) {

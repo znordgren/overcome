@@ -47,6 +47,12 @@ public class Stats
 		clearStatsEffects();
 	}
 	
+	public void kill()
+	{
+		this.alive = false;
+		this.animate = false;
+	}
+	
 	public void setStats(double initiative, double health, double defense, double weight, double speed, double power, double range, double dexterity, double intelligence)
 	{
 		this.initiative = initiative;

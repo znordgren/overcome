@@ -1,5 +1,7 @@
 package overcome;
 
+import javafx.geometry.Point2D;
+
 /**
  * Base class for implementing the actions generic monsters can take. There will
  * be specific classes for different monster types derived from this one.
@@ -19,15 +21,26 @@ public class Monster extends Sprite {
 		stats.setStats(10, 100, 20, 50, 1, 1, 10, 10, 10);
 	}
 
-	public void update(PlayField field) {
+	public void update(PlayField field, Point2D playerLoc) {
 		super.update(field);
 		int testDir;
 		testDir = dirObject.randDirection();
-		while (!field.checkMove(dirObject.movePoint(x, y, testDir, stats.speed), testDir, stats.speed)) {
+		while (!field.checkMove(Directions.movePoint(x, y, testDir, stats.speed), testDir, stats.speed)) {
 			testDir = dirObject.randDirection();
 		}
-		setPosition(dirObject.movePoint(x, y, testDir, stats.speed));
+		if(playerLoc.distance(x,y)<8) {
+			int tempTestDir = dirObject.getNextStepInPath(x, y, playerLoc.getX(), playerLoc.getY());
+			if(!Directions.movePoint(x, y,tempTestDir,stats.speed).equals(playerLoc)) {
+				if(field.checkMove(Directions.movePoint(x, y,tempTestDir,stats.speed), tempTestDir, stats.speed)){
+					testDir = tempTestDir;
+				}
+			}
+		}
+		
+		setPosition(Directions.movePoint(x, y, testDir, stats.speed));
 		stats.onScreen = field.checkOnScreen(x, y);
 	}
+	
+	
 
 }
